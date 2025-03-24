@@ -4,9 +4,9 @@
   "description": "backend for video library",
   "license": "ISC",
   "author": "Shivam Tidke",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "javascript backend"
+    "dev": "node index.js"
   }
 }
