@@ -1,0 +1,12 @@
+{
+  "name": "video-library-backend",
+  "version": "1.0.0",
+  "description": "backend for video library",
+  "license": "ISC",
+  "author": "Shivam Tidke",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "javascript backend"
+  }
+}
