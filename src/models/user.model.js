@@ -24,7 +24,7 @@ const userSchema = new Schema
             unique: true, 
         },
         Mobile:{
-            type: Number,
+            type: String,
             required:true,
             trim: true,
             unique: true, 
@@ -41,4 +41,4 @@ const userSchema = new Schema
     }
 )
 
-export const User = mongoose.model("User", userSchema)
+export const User = mongoose.model("User", userSchema);
