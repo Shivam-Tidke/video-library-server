@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose"
 
 
 const userSchema = new Schema
-(
+( 
     {
         UserName:{
             type: String,
@@ -13,10 +13,6 @@ const userSchema = new Schema
             index: true
             
         },
-
-
-
-
         Password:{
             type: String,
             required:[true,"Password is required"]
