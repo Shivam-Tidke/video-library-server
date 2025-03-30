@@ -17,11 +17,14 @@ app.use(cookieParser())
 //Route import
 
 import userRouter from "./routes/user.routes.js"
+import videoRouter from "./routes/video.routes.js"
+import categoryRouter from "./routes/category.routes.js"
 
 //route decration 
 
 app.use("/api/v1/users", userRouter)
-
+app.use("/api/v1/videos", videoRouter)
+app.use("/api/v1/category", categoryRouter)
 //http://localhost:5050/api/v1/users/register
 
 export { app }

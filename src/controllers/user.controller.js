@@ -10,9 +10,12 @@ const registerUser = asyncHandler(async (req, res)=>{
         //check if user already exist: UserName, Email
         //create user object- create entry in db
         //check for user creration
-        //return res
+        //return res 
 
         const {FullName, UserName, Password, Email, Mobile} = req.body;
+        
+        
+
         
         // if (fullName === "") {
         //     throw new ApiError(400, "fullName is required")
@@ -57,8 +60,22 @@ const registerUser = asyncHandler(async (req, res)=>{
        return res.status(201).json(
         new ApiResponse(200, createdUser, "Registered User successfully")
        )
+})
 
+const GetallUsers = asyncHandler(async(req, res) =>{
+const users = await User.find()
+
+if(!users || users.length === 0){
+    throw new ApiError(400,"No users found");
+}
+
+return res.status(200).json(
+    new ApiResponse(200, users, "All users fatched successfully")
+)
+
+ 
 
 })
 
-export {registerUser}
+
+export {registerUser, GetallUsers }

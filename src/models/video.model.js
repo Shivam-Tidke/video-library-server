@@ -11,6 +11,7 @@ const videoSchema = new Schema(
         URL:{
             type: String,
             required: true,
+            unique:true
             
         },
         Description:{
@@ -31,17 +32,13 @@ const videoSchema = new Schema(
             default:0
         },
         CategoryId:{
-            type: mongoose.Schema.Types.ObjectId,
-            ref:"Category",
-            required: true
- 
+            type: Schema.Types.ObjectId,
+            ref:"Category"
         }
-        
-
     },
     {
         timestamps: true
     }
 )
 
-export const Video = mongoose.model("Videos", videoSchema)
+export const Video = mongoose.model("Video", videoSchema)
