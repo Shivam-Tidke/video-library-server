@@ -12,42 +12,32 @@ const registerUser = asyncHandler(async (req, res)=>{
         //check for user creration
         //return res 
 
-        const {FullName, UserName, Password, Email, Mobile} = req.body;
-        
+        const {username ,fullName , password, email, mobile} = req.body;
+            
         
 
-        
-        // if (fullName === "") {
-        //     throw new ApiError(400, "fullName is required")
-        // }
-
-        // if (
-        //     [FullName, UserName, Password, Email, Mobile].some((field)=>field?.trim() === "")
-        // ) {
-        //     throw new ApiError(400,"All field are required");
-        // }
-        if (!FullName || !UserName || !Password || !Email || !Mobile) {
-            throw new ApiError(400, "All fields are required");
-        }
-
+        const sanitizedUsername = username.trim().toLowerCase();
+        const sanitizedEmail = email.trim().toLowerCase();
+    
+        // Check if user already exists
         const existedUser = await User.findOne({
-            $or:[{UserName},{Email}]
-        })
+            $or: [{ username: sanitizedUsername }, { email: sanitizedEmail }]
+        });
 
         if (existedUser) {
             throw new ApiError(409, "User with Email or userName already exists")
         }
 
        const user = await User.create({
-           UserName,
-           Email,
-           FullName,
-           Password,
-           Mobile
+           username: sanitizedUsername,
+            email: sanitizedEmail,
+           fullName,
+           password,
+           mobile
         })
 
        const createdUser = await User.findById(user._id).select(
-        "-Password"
+        "-password"
        )
 
        if (!createdUser) {
@@ -73,9 +63,6 @@ return res.status(200).json(
     new ApiResponse(200, users, "All users fatched successfully")
 )
 
- 
-
 })
-
 
 export {registerUser, GetallUsers }
