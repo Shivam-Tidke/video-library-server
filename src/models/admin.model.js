@@ -2,7 +2,7 @@ import mongoose, { Schema } from "mongoose";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
-const userSchema = new Schema(
+const adminSchema = new Schema(
     {
         username: {
             type: String,
@@ -21,11 +21,7 @@ const userSchema = new Schema(
             trim: true,
             unique: true
         },
-        mobile: {
-            type: String,
-            required: true,
-            trim: true
-        },
+
         fullName: {
             type: String,
             required: true,
@@ -42,18 +38,18 @@ const userSchema = new Schema(
 
     
 );
-userSchema.pre("save", async function (next) {
+adminSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
 
     this.password = await bcrypt.hash(this.password, 10); 
     next();
 });
 
-userSchema.methods.isPasswordCorrect = async function (password) {
+adminSchema.methods.isPasswordCorrect = async function (password) {
     return  await bcrypt.compare(password, this.password)
 }
 
-userSchema.methods.generateAccessToken = function(){
+adminSchema.methods.generateAccessToken = function(){
    return jwt.sign(
         {
             _id:this._id,
@@ -67,7 +63,7 @@ userSchema.methods.generateAccessToken = function(){
         }
     )
 }
-userSchema.methods.generateRefreshToken = function(){
+adminSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
         {
             _id:this._id,
@@ -82,4 +78,4 @@ userSchema.methods.generateRefreshToken = function(){
     )
 }
 
-export const User = mongoose.model("User", userSchema);
+export const Admin = mongoose.model("Admin", adminSchema);

@@ -39,5 +39,17 @@ const registerVideo = asyncHandler(async(req,res)=>{
     )
 })
 
-export {registerVideo}
+const GetAllVideos = asyncHandler (async(req, res)=>{
+    const videos = await Video.find()
+
+    if(!videos || videos.length === 0 ){
+        throw new ApiError(400,"No videos found")
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, videos, "All videos fetch successfully")
+    )
+})
+
+export {registerVideo, GetAllVideos}
     

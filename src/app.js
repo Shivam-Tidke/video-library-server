@@ -5,7 +5,7 @@ import cors from "cors"
 const app = express()
 
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
+    origin: "http://localhost:5173",
     credentials: true
 }))
 
@@ -19,12 +19,16 @@ app.use(cookieParser())
 import userRouter from "./routes/user.routes.js"
 import videoRouter from "./routes/video.routes.js"
 import categoryRouter from "./routes/category.routes.js"
+import adminRouter from "./routes/admin.routes.js"
 
 //route decration 
-
+ 
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/videos", videoRouter)
 app.use("/api/v1/category", categoryRouter)
+app.use("/api/v1/admins", adminRouter )
+
+
 //http://localhost:5050/api/v1/users/register
 
 export { app }

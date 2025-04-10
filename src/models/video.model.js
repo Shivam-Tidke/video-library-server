@@ -34,7 +34,25 @@ const videoSchema = new Schema(
         CategoryId:{
             type: Schema.Types.ObjectId,
             ref:"Category"
-        }
+        },
+        Comments: [
+            {
+              UserId: {
+                type: Schema.Types.ObjectId,
+                ref: "User",
+                required: true,
+              },
+              Text: {
+                type: String,
+                required: true,
+                trim: true,
+              },
+              CreatedAt: {
+                type: Date,
+                default: Date.now,
+              },
+            },
+          ],
     },
     {
         timestamps: true
