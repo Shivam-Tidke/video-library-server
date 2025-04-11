@@ -1,9 +1,10 @@
+import mongoose from "mongoose";
 import { Video } from "../models/video.model.js";
 import { ApiError } from "../utils/apiError.js";
 import { ApiResponse } from "../utils/apiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
-const registerVideo = asyncHandler(async(req,res)=>{
+const registerVideo = asyncHandler(async(req, res)=>{
     const  {Title, URL, Description, Likes, Dislikes, Views, CategoryId} = req.body;
 
     if(!Title || !URL || !Description ){
@@ -51,5 +52,44 @@ const GetAllVideos = asyncHandler (async(req, res)=>{
     )
 })
 
-export {registerVideo, GetAllVideos}
+const DeleteVideo = asyncHandler (async (req, res)=>{
+ const {id} = req.params 
+
+ if(!mongoose.Types.ObjectId.isValid(id)){
+    throw new ApiError (400, "Invalide video ID");
+ }
+
+ const deletedVideo = await Video.findByIdAndDelete(id)
+
+ if(!deletedVideo){
+    throw new ApiError(400, "Video not found or already deleted")
+ }
+
+ return res.status(200).json(
+    new ApiResponse (200, deletedVideo, "Video deleted successfully")
+ )
+})
+
+const GetVideoById = asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new ApiError(400, "Invalid video ID");
+    }
+
+    const video = await Video.findById(id);
+
+    if (!video) {
+        throw new ApiError(404, "Video not found");
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, video, "Video fetched successfully")
+    );
+});
+
+
+export {registerVideo, GetAllVideos, DeleteVideo, GetVideoById}
+
+
     
