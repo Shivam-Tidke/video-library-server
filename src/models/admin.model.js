@@ -35,8 +35,6 @@ const adminSchema = new Schema(
     {
         timestamps: true
     }
-
-    
 );
 adminSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();

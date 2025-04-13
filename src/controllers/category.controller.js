@@ -12,7 +12,7 @@ const registerCategory = asyncHandler(async (req, res)=>{
 
     const categoryName = name.trim().toLowerCase();
 
-    const existedCategory = await Category.findOne({categoryName})
+    const existedCategory = await Category.findOne({name: categoryName})
 
     if(existedCategory){
         throw new ApiError(400, "Category already exists")
@@ -27,4 +27,15 @@ const registerCategory = asyncHandler(async (req, res)=>{
     )    
 })
 
-export {registerCategory}
+const getAllCategories = asyncHandler(async (req, res)=>{
+    const category = await Category.find()
+
+    if(!category || category.length===0){
+        throw new ApiError(400,"No categories found")
+    }
+
+    return res.status(200).json(
+        new ApiResponse(200, category, "All category fatched successfully")
+    )
+})
+export {registerCategory, getAllCategories}

@@ -88,8 +88,43 @@ const GetVideoById = asyncHandler(async (req, res) => {
     );
 });
 
+const EditVideo = asyncHandler (async (req, res)=>{
+    const {id} = req.params 
+   
+    if(!mongoose.Types.ObjectId.isValid(id)){
+       throw new ApiError (400, "Invalide video ID");
+    }
+   
+    const UpdatedVideo = await Video.findByIdAndUpdate(
+        id,
+        {
+            $set: {
+                Title: req.body.Title,
+                URL: req.body.URL,
+                Description: req.body.Description,
+                Likes: req.body.Likes,
+                Dislikes: req.body.Dislikes,
+                Views: req.body.Views,
+                CategoryId: req.body.CategoryId
+            }
+        },
+        {
+            new: true,           // return the updated document
+            runValidators: true  // ensure model validation runs
+        }
+    );
+   
+    if(!UpdatedVideo){
+       throw new ApiError(400, "Video not found")
+    }
+   
+    return res.status(200).json(
+       new ApiResponse (200, UpdatedVideo, "Video Updated successfully")
+    )
+   })
 
-export {registerVideo, GetAllVideos, DeleteVideo, GetVideoById}
+
+export {registerVideo, GetAllVideos, DeleteVideo, GetVideoById, EditVideo}
 
 
     
