@@ -4,7 +4,7 @@ This is the **backend API** for the [Tech Video Library](https://github.com/Shiv
 
 ## Live Frontend
 
-![video-library-client.vercel.app](https://video-library-client.vercel.app)
+[video-library-client.vercel.app](https://video-library-client.vercel.app)
 
 ## Tech Stack
 
