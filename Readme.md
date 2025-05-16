@@ -4,7 +4,7 @@ This is the **backend API** for the [Tech Video Library](https://github.com/Shiv
 
 ## Live Frontend
 
-[video-library-client.vercel.app](https://video-library-client.vercel.app
+![video-library-client.vercel.app](https://video-library-client.vercel.app)
 
 ## Tech Stack
 
@@ -19,7 +19,7 @@ This is the **backend API** for the [Tech Video Library](https://github.com/Shiv
 - **dotenv**
 - **mongoose-aggregate-paginate-v2**
 
-- ## Features
+## Features
 
 -  User and Admin registration/login
 -  JWT-based authentication with role protection
@@ -48,3 +48,8 @@ video-library-server/
 ├── .gitignore
 ├── package.json
 ├── README.md
+```
+## Authentication
+- JWT token is issued login
+- Cookie-parser used to store auth token securely
+- Middleware checks token validity and role (User/Admin)
